@@ -1,10 +1,10 @@
 - if @validator.valid?
   %p
-    %span.success Congratulations!
+    %span.success It's valid! It's really valid!
     I couldn't find any errors in the PBCore document you provided. Hooray!
 - else
-  %p
-    %span.failure Sorry.
+  %h2
+    %span.failure NO.
     The following potential errors were found in your PBCore document:
   %ul#errors
     - @validator.errors.each do |error|

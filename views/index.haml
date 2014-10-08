@@ -1,11 +1,7 @@
 :textile
-  This is an updated version of the original PBCore validator first published in 2009. It can detect certain types of errors and deviations from "best practices" in "PBCore":http://www.pbcore.org/ records.
+  This is an updated version of the original PBCore validator first published in 2009. It can detect certain types of errors and deviations from "best practices" in "PBCore":http://www.pbcore.org/ records. Note that this tool is *not* officially endorsed by anyone affiliated with PBCore.
 
-  Note that this tool is *not* officially endorsed by anyone affiliated with PBCore.
-
-  For more information, see "the blog post introducting the validator":http://vermicel.li/blog/2009/02/02/introducing-the-pbcore-validator.html.
-
-%h2 Validate a document
+%h2 Is it valid PBCore?
 %form{ :action => "/validator", :method => "post", :enctype => "multipart/form-data" }
   %p
     %label{ :for => "file" } Select a file to validate:
@@ -21,13 +17,15 @@
         %option{ :value => code, :selected => (code == "1.2") }&= version[:version]
   %p
     %input{ :type => "reset", :value => "Clear Form" }
-    %input.s{ :type => "submit", :value => "Validate PBCore" }
+    %input.s{ :type => "submit", :value => "Validate me!" }
 
 %hr
 
 :textile
   This PBCore validator update was started on 10/07/2014 by Tessa Fallon for the AMIA/DLF Hack Day. The PBCore validator is written by mike castleman and is copyright (c) 2009 by "Roasted Vermicelli, LLC":http://vermicel.li/ and released under the terms of the "GNU General Public License":http://www.gnu.org/licenses/gpl.html, "version 3":COPYING.txt or later.
 
-  You can "browse the source code":http://github.com/tessafallon/pbcorevalidator or "contact the author":mailto:tessa@gmail.com.
+  For more information, see "the blog post introducting the validator":http://vermicel.li/blog/2009/02/02/introducing-the-pbcore-validator.html.
+
+  You can "browse the source code":http://github.com/tessafallon/pbcorevalidator or "contact the author":mailto:tessa.fallon@gmail.com.
 
   This work employs <a href="http://www.pbcore.org/">PBCore</a>. The PBCore (Public Broadcasting Metadata Dictionary) was created by the public broadcasting community in the United States of America for use by public broadcasters and others. Initial development funding for PBCore was provided by the Corporation for Public Broadcasting.  The PBCore is built on the foundation of the Dublin Core (ISO 15836), an international standard for resource discovery (<a href="http://dublincore.org/">http://dublincore.org</a>), and has been reviewed by the Dublin Core Metadata Initiative Usage Board. Copyright: 2005, Corporation for Public Broadcasting.
