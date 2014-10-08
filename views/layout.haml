@@ -4,8 +4,26 @@
   %head{ :profile => "http://www.w3.org/2005/10/profile" }
     %title PBCore Validator 2014
     %link{ :rel => "stylesheet", :type => "text/css", :href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" }
+    %link{ :rel => "stylesheet", :type => "text/css", :href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" }
     %link{ :rel => "icon", :type => "image", :href => "logo.png" }
-    %img(src="/logo.png")
-  %body
+    
+    %body{ :style => "position: absolute; left: 250px; top: 100px;" }
+      .navbar.navbar-inverse.navbar-fixed-top
+        .navbar-inner
+          .container
+            %button.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse", :type => "button"}
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            %a.brand{:href => "#"} PBCore Validator 2.0: Validation Boogaloo
+            .nav-collapse.collapse
+              %ul.nav
+                %li.active
+                  %a{:href => "#"} Home
+                %li
+                  %a{:href => "#about"} About
     %h1 PBCore Validator
+    %h2
+      %img(src="/logo.png")
     = yield
+  %script{ :src => "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" }
