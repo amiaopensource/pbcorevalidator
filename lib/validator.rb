@@ -540,8 +540,8 @@ class Validator
     end
   end
 
-  def check_dates
-    each_elt("pbcore")
+  # def check_dates
+  #   each_elt("pbcore")
 
   def each_elt(elt)
     @xml.find("//pbcore:#{elt}", "pbcore:#{PBCORE_NAMESPACE}").each do |node|
