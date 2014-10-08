@@ -409,7 +409,7 @@ class Validator
   # creates a new PBCore validator object, parsing the provided XML.
   #
   # io_or_document can either be an IO object or a String containing an XML document.
-  def initialize(io_or_document, pbcore_version = "1.2")
+  def initialize(io_or_document, pbcore_version = "2.0")
     XML.default_line_numbers = true
     @errors = []
     @pbcore_version = pbcore_version
@@ -530,15 +530,18 @@ class Validator
     end
   end
 
-  # ensure that no single instantiation has both a formatDigital and a formatPhysical
-  def check_only_one_format
+  # ensure that no single instantiation has both a instantationDigital and a instantationPhysical
+  def check_only_one_instantation
     each_elt("pbcoreInstantiation") do |node|
-      if node.find(".//pbcore:formatDigital", "pbcore:#{PBCORE_NAMESPACE}").size > 0 &&
-          node.find(".//pbcore:formatPhysical", "pbcore:#{PBCORE_NAMESPACE}").size > 0
-        @errors << "It looks like the instantiation on line #{node.line_num} contains both a formatDigital and a formatPhysical element. This is probably not what you intended."
+      if node.find(".//pbcore:instantationDigital", "pbcore:#{PBCORE_NAMESPACE}").size > 0 &&
+          node.find(".//pbcore:instantationPhysical", "pbcore:#{PBCORE_NAMESPACE}").size > 0
+        @errors << "It looks like the instantiation on line #{node.line_num} contains both a instantationDigital and a instantationPhysical element. This is probably not what you intended."
       end
     end
   end
+
+  def check_dates
+    each_elt("pbcore")
 
   def each_elt(elt)
     @xml.find("//pbcore:#{elt}", "pbcore:#{PBCORE_NAMESPACE}").each do |node|
