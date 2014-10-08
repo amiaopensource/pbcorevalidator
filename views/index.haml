@@ -14,7 +14,7 @@
     %label{ :for => "version" } PBCore Version:
     %select{ :name => "version", :id => "version" }
       - Validator::PBCORE_VERSIONS.sort.each do |code, version|
-        %option{ :value => code, :selected => (code == "1.2") }&= version[:version]
+        %option{ :value => code, :selected => (code == "2.0") }&= version[:version]
   %p
     %input{ :type => "reset", :value => "Clear Form" }
     %input.s{ :type => "submit", :value => "Validate me!" }
