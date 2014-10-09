@@ -456,7 +456,7 @@ class Validator
     check_names('creator')
     check_names('contributor')
     check_names('publisher')
-    check_only_one_format
+    check_only_one_instantiation
   end
 
   # returns true iff the document is perfectly okay
@@ -531,10 +531,10 @@ class Validator
   end
 
   # ensure that no single instantiation has both a instantationDigital and a instantationPhysical
-  def check_only_one_instantation
+  def check_only_one_instantiation
     each_elt("pbcoreInstantiation") do |node|
-      if node.find(".//pbcore:instantationDigital", "pbcore:#{PBCORE_NAMESPACE}").size > 0 &&
-          node.find(".//pbcore:instantationPhysical", "pbcore:#{PBCORE_NAMESPACE}").size > 0
+      if node.find(".//pbcore:instantiationDigital", "pbcore:#{PBCORE_NAMESPACE}").size > 0 &&
+          node.find(".//pbcore:instantiationPhysical", "pbcore:#{PBCORE_NAMESPACE}").size > 0
         @errors << "It looks like the instantiation on line #{node.line_num} contains both a instantationDigital and a instantationPhysical element. This is probably not what you intended."
       end
     end

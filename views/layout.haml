@@ -3,11 +3,12 @@
 %html{ :xmlns=>"http://www.w3.org/1999/xhtml", "xml:lang"=>"en", :lang=>"en" }
   %head{ :profile => "http://www.w3.org/2005/10/profile" }
     %title PBCore Validator 2014
+    %link{ :rel => "stylesheet", :type => "text/css", :href => "/custom.css" }
     %link{ :rel => "stylesheet", :type => "text/css", :href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" }
     %link{ :rel => "stylesheet", :type => "text/css", :href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" }
     %link{ :rel => "icon", :type => "image", :href => "logo.png" }
     
-    %body{ :style => "position: absolute; left: 250px; top: 100px;" }
+    %body
       .navbar.navbar-inverse.navbar-fixed-top
         .navbar-inner
           .container
@@ -22,6 +23,7 @@
                   %a{:href => "/"} Home
                 %li
                   %a{:href => "/about"} About
+    
     %h1 PBCore Validator
     %h2
       %img(src="/logo.png")
