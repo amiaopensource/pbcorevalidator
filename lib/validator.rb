@@ -457,7 +457,7 @@ class Validator
     check_names('contributor')
     check_names('publisher')
     check_only_one_instantiation
-    check_dates
+    # check_dates
   end
 
   # returns true iff the document is perfectly okay
@@ -541,15 +541,15 @@ class Validator
     end
   end
 
-  def check_dates
-     each_elt("pbcoreInstantiation") do |node|
-        if node.find(".//pbcore:instantiationDate", "pbcore:#{PBCORE_NAMESPACE}").size > 0 
-            @errors << "SUGGESTED:  consider formatting your dates to conform to ISO8609 as follows: Asset date: yyyy-mm-dd
-temporal coverage: yyyy-mm-dd
-duration: 00:00:00;00"
-        end
-     end
-  end
+#   def check_dates
+#      each_elt("pbcoreInstantiation") do |node|
+#         if node.find(".//pbcore:instantiationDate", "pbcore:#{PBCORE_NAMESPACE}").size > 0 
+#             @errors << "SUGGESTED:  consider formatting your dates to conform to ISO8609 as follows: Asset date: yyyy-mm-dd
+# temporal coverage: yyyy-mm-dd
+# duration: 00:00:00;00"
+#         end
+#      end
+#   end
 
   def each_elt(elt)
     @xml.find("//pbcore:#{elt}", "pbcore:#{PBCORE_NAMESPACE}").each do |node|
