@@ -544,7 +544,7 @@ class Validator
   def check_dates
      each_elt("pbcoreInstantiation") do |node|
         if node.find(".//pbcore:instantiationDate", "pbcore:#{PBCORE_NAMESPACE}").size > 0 
-            @errors << "SUGGESTED:  please make sure that the date format corresponds to the following list:Asset date: yyyy-mm-dd
+            @errors << "SUGGESTED:  consider formatting your dates to conform to ISO8609 as follows: Asset date: yyyy-mm-dd
 temporal coverage: yyyy-mm-dd
 duration: 00:00:00;00"
         end
