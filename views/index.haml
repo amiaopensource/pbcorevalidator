@@ -1,5 +1,7 @@
 :textile
-  This is an updated version of the original PBCore validator first published in 2009. It can detect certain types of errors and deviations from "best practices" in "PBCore":http://www.pbcore.org/ records. 
+  This is an updated version of the original PBCore validator first published in 2009. 
+
+  It can detect certain types of errors and deviations from "best practices" in "PBCore":http://www.pbcore.org/ records. 
   
 %h2 Is it valid PBCore?
 %form{ :action => "/validator", :method => "post", :enctype => "multipart/form-data" }
@@ -9,7 +11,7 @@
   %p
     %label{ :for => "textarea" } <strong>or</strong> paste a PBCore document into the textbox:
     %br
-    %textarea{ :id => "textarea", :name => "textarea", :rows => 10, :cols => 80 }
+    %textarea{ :id => "textarea", :name => "textarea", :rows => 15, :cols => 100 }
   %p
     %label{ :for => "version" } PBCore Version:
     %select{ :name => "version", :id => "version" }

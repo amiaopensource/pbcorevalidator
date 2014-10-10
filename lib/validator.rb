@@ -136,7 +136,7 @@ class Validator
      "Release Agent", "Other"
     ]
 
-    PHYSICAL_FORMATS = [
+    PHYSICAL_INSTANTIATIONS = [
      "Film: 8mm", "Film: 16mm", "Film: 35mm", "Film: 70mm", "8mm video",
      "8mm: Hi8 Video", "8mm: Digital-8", "1/4 inch videotape: Akai",
      "1/2 inch videotape: CV", "1/2 inch videotape: EIAJ Type 1",
@@ -174,7 +174,7 @@ class Validator
      "Paper", "Periodical"
     ]
 
-    DIGITAL_FORMATS =     [
+    DIGITAL_INSTANTIATIONS =     [
      "not specified", "video/3gpp", "video/3gpp2", "video/3gpp-tt",
      "video/BMPEG", "video/BT656", "video/CelB", "video/DV",
      "video/H261", "video/H263", "video/H263-1998", "video/H263-2000",
@@ -447,8 +447,8 @@ class Validator
     check_picklist('creatorRole', Picklists::CREATOR_ROLES)
     check_picklist('contributorRole', Picklists::CONTRIBUTOR_ROLES)
     check_picklist('publisherRole', Picklists::PUBLISHER_ROLES)
-    check_picklist('formatPhysical', Picklists::PHYSICAL_FORMATS)
-    check_picklist('formatDigital', Picklists::DIGITAL_FORMATS)
+    check_picklist('instantiationPhysical', Picklists::PHYSICAL_INSTANTIATIONS)
+    check_picklist('instantiationDigital', Picklists::DIGITAL_INSTANTIATIONS)
     check_picklist('formatMediaType', Picklists::MEDIA_TYPES)
     check_picklist('formatGenerations', Picklists::GENERATIONS)
     check_picklist('formatColors', Picklists::FORMAT_COLORS)
@@ -457,6 +457,7 @@ class Validator
     check_names('contributor')
     check_names('publisher')
     check_only_one_instantiation
+    check_dates
   end
 
   # returns true iff the document is perfectly okay
@@ -507,7 +508,7 @@ class Validator
       if node.content.strip.empty?
         @errors << "#{elt} on #{node.line_num} is empty. Perhaps consider leaving that element out instead."
       elsif !picklist.any?{|i| i.downcase == node.content.downcase}
-        @errors << "“#{node.content}” on line #{node.line_num} is not in the PBCore suggested picklist value for #{elt}."
+        @errors << "SUGGESTED: “#{node.content}” on line #{node.line_num} is not in the PBCore suggested picklist value for #{elt}."
       end
     end
     check_lists(elt)
@@ -516,7 +517,7 @@ class Validator
   def check_lists(elt)
     each_elt(elt) do |node|
       if node.content =~ /[,|;]/
-        @errors << "In #{elt} on line #{node.line_num}, you have entered “#{node.content}”, which looks like it may be a list. It is preferred instead to repeat the containing element."
+        @errors << "SUGGESTED: In #{elt} on line #{node.line_num}, you have entered “#{node.content}”, which looks like it may be a list. It is preferred instead to repeat the containing element."
       end
     end
   end
@@ -525,7 +526,7 @@ class Validator
   def check_names(elt)
     each_elt(elt) do |node|
       if node.content =~ /^(\w+\.?(\s\w+\.?)?)\s+(\w+)$/
-        @errors << "It looks like the #{elt} “#{node.content}” on line #{node.line_num} might be a person's name. If it is, then it is preferred to have it like “#{$3}, #{$1}”."
+        @errors << "SUGGESTED: It looks like the #{elt} “#{node.content}” on line #{node.line_num} might be a person's name. If it is, then it is preferred to have it like “#{$3}, #{$1}”."
       end
     end
   end
@@ -535,13 +536,20 @@ class Validator
     each_elt("pbcoreInstantiation") do |node|
       if node.find(".//pbcore:instantiationDigital", "pbcore:#{PBCORE_NAMESPACE}").size > 0 &&
           node.find(".//pbcore:instantiationPhysical", "pbcore:#{PBCORE_NAMESPACE}").size > 0
-        @errors << "It looks like the instantiation on line #{node.line_num} contains both a instantationDigital and a instantationPhysical element. This is probably not what you intended."
+        @errors << "SUGGESTED: It looks like the instantiation on line #{node.line_num} contains both a instantationDigital and a instantationPhysical element. This is probably not what you intended."
       end
     end
   end
 
-  # def check_dates
-  #   each_elt("pbcore")
+  def check_dates
+     each_elt("pbcoreInstantiation") do |node|
+        if node.find(".//pbcore:instantiationDate", "pbcore:#{PBCORE_NAMESPACE}").size > 0 
+            @errors << "SUGGESTED:  please make sure that the date format corresponds to the following list:Asset date: yyyy-mm-dd
+temporal coverage: yyyy-mm-dd
+duration: 00:00:00;00"
+        end
+     end
+  end
 
   def each_elt(elt)
     @xml.find("//pbcore:#{elt}", "pbcore:#{PBCORE_NAMESPACE}").each do |node|
